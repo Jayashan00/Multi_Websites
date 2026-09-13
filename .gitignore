@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.output/
+.vite/
+target/
+uploads/*
+!uploads/.gitkeep
+*.class
+.idea/
+.DS_Store
+config.bat
