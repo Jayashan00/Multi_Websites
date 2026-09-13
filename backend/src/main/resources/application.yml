@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mother-platform-backend
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/motherplatform}
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+
+app:
+  jwt:
+    # CHANGE THIS in production — generate a long random string and set it via
+    # the JWT_SECRET environment variable. Never commit a real secret.
+    secret: ${JWT_SECRET:dev-only-secret-please-change-this-to-a-long-random-string-before-deploying}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24 hours
+  uploads:
+    dir: ${UPLOADS_DIR:./uploads}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,http://localhost:3000}
+  admin:
+    # Seeds one admin account on first boot if no users exist yet.
+    seed-email: ${ADMIN_EMAIL:admin@motherplatform.local}
+    seed-password: ${ADMIN_PASSWORD:ChangeMe123!}
+
+logging:
+  level:
+    com.motherplatform: INFO

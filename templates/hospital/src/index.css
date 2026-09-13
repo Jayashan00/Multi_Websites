@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ecg: #12b7a4;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bone font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-bold tracking-[-0.02em] text-ink;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-mint-500 ring-offset-2 ring-offset-white rounded-md;
+  }
+
+  ::selection {
+    @apply bg-mint-200 text-ink;
+  }
+
+  /* Slim, clinical scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #EAF1F7; }
+  ::-webkit-scrollbar-thumb { background: #A2CFF5; border-radius: 99px; border: 2px solid #EAF1F7; }
+  ::-webkit-scrollbar-thumb:hover { background: #3C92DE; }
+
+  .skip-link {
+    @apply absolute left-4 z-[999] -translate-y-40 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white transition-transform;
+  }
+  .skip-link:focus {
+    @apply translate-y-4;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-2xs font-semibold uppercase tracking-[0.22em] text-clinic-500;
+  }
+
+  .card-base {
+    @apply rounded-xl2 border border-clinic-100 bg-white shadow-card transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1.5 hover:border-clinic-200 hover:shadow-lift;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-clinic-100 bg-white px-4 py-3 text-sm text-ink
+           placeholder:text-ink-muted/70 transition
+           focus:border-clinic-400 focus:outline-none focus:ring-4 focus:ring-clinic-500/10;
+  }
+
+  .field-error {
+    @apply border-emergency-400 focus:border-emergency-500 focus:ring-emergency-500/10;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-ink-soft;
+  }
+
+  /* The signature device: a live ECG trace used as a section divider */
+  .ecg-line path {
+    stroke-dasharray: 1200;
+  }
+
+  .prose-clinic {
+    @apply text-[15px] leading-[1.85] text-ink-soft;
+  }
+  .prose-clinic p + p { @apply mt-4; }
+  .prose-clinic h2 { @apply mb-3 mt-9 text-2xl; }
+  .prose-clinic h3 { @apply mb-2 mt-7 text-xl; }
+  .prose-clinic ul { @apply my-4 space-y-2 pl-1; }
+  .prose-clinic li { @apply relative pl-6; }
+  .prose-clinic li::before {
+    content: '';
+    @apply absolute left-0 top-[0.6em] h-2 w-2 rounded-sm bg-mint-400;
+  }
+  .prose-clinic blockquote {
+    @apply my-6 border-l-4 border-mint-400 bg-mint-50/60 px-5 py-4 text-ink italic rounded-r-xl;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent);
+    mask-image: linear-gradient(90deg, #000 78%, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Respect the operating-system "reduce motion" setting everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+@media print {
+  header, footer, .no-print { display: none !important; }
+}
