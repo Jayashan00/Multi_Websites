@@ -5,8 +5,8 @@
   "description": "Hospital / Clinic Management Website \u2014 Frontend (Quick Solutions Pvt Ltd)",
   "type": "module",
   "scripts": {
-    "dev": "node init && vite",
-    "build": "node init && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives",
     "assets": "node scripts/download-assets.mjs"
